@@ -34,15 +34,26 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Archive dummy artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dummy-art
+          path: ./README.md
+     
           
   deployment: 
      runs-on: ubuntu-22.04
      needs: build
      steps:
-     - uses: actions/checkout@v4
-
+     - name: Download a single artifact
+       uses: actions/download-artifact@v5
+       with:
+         name: dummy-art
+      
      - name: Run a one-line script
-       run: echo Hello, world!
+       run: cat README.md
+     
 
    
    
